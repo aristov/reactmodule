@@ -2,9 +2,9 @@ const path = require('path')
 
 module.exports = {
   mode : 'none',
-  context : path.join(__dirname, 'lib'),
+  context : path.join(__dirname, 'docs'),
   entry : {
-    index : './index.js',
+    test1 : './test1.js',
   },
   devtool : 'inline-source-map',
   output : {
