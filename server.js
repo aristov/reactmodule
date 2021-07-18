@@ -1,14 +1,15 @@
-process.env.NODE_ENV = 'development'
-
 const express = require('express')
 const webpack = require('webpack')
 const devMiddleware = require('webpack-dev-middleware')
 const hotMiddleware = require('webpack-hot-middleware')
+const favicon = require('serve-favicon')
 const config = require('./webpack.config')
 const compiler = webpack(config)
 const port = 8000
 
 const app = express()
+
+app.use(favicon('./docs/favicon.ico'))
 
 app.use(devMiddleware(compiler, {
   publicPath : config.output.publicPath,
