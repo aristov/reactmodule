@@ -1,5 +1,4 @@
-import { Component, render } from '../lib/Component'
-import { HtmlButton, HtmlSection, HtmlDiv, HtmlImg } from '../lib'
+import { Component, render, HtmlButton, HtmlSection, HtmlDiv, HtmlImg } from '../lib'
 
 const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
 
@@ -24,11 +23,11 @@ class HtmlArticle extends Component
         children : text,
       }),
       new HtmlDiv(expanded && new HtmlImg({
-        src : 'tmp/crazy7.jpg',
+        src : 'crazy7.jpg',
         alt : 'Crazy!',
       })),
     ]
   }
 }
 
-render(new HtmlArticle, document.getElementById('root'))
+export default () => render(new HtmlArticle, document.body)
