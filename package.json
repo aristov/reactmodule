@@ -1,0 +1,17 @@
+{
+  "name": "reactmodule",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/aristov/reactmodule.git"
+  },
+  "author": "Vyacheslav Aristov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aristov/reactmodule/issues"
+  },
+  "homepage": "https://github.com/aristov/reactmodule#readme"
+}
