@@ -8,7 +8,7 @@ class SiteBody extends HtmlBody
   render() {
     return [
       new HtmlHeader(new HtmlImg({ src : 'crazy7.jpg', alt : 'UserPic' })),
-      new HtmlMain(),
+      new HtmlMain('Hello world!'),
       new HtmlFooter(),
     ]
   }

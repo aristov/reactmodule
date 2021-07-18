@@ -34,5 +34,3 @@ exports.module = {
 }
 
 exports.plugins = [new webpack.HotModuleReplacementPlugin]
-
-exports.devServer = { hotOnly : true, hot : true }
