@@ -1,4 +1,29 @@
+html
+{
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+body
+{
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  margin: 0;
+  text-align: center;
+}
+header
+{
+  padding: 30px;
+}
+main
+{
+  padding: 30px;
+}
+footer
+{
+  padding: 10px;
+}
 img
 {
-  width: 50px;
+  width: 100px;
 }
