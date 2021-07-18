@@ -1,4 +1,8 @@
-import { Component, render, HtmlButton, HtmlSection, HtmlDiv, HtmlImg } from '../lib'
+import { Component, HtmlButton, HtmlSection, HtmlDiv, HtmlImg } from '../lib'
+
+function render(component, node) {
+  node.append(component.node)
+}
 
 const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
 

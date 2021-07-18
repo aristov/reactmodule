@@ -27,19 +27,35 @@ class SiteBody extends HtmlBody
         new HtmlH1('Vyacheslav Aristov'),
         new AuthForm,
       ]),
-      new HtmlFooter(['@ ', (new Date).getFullYear(), ' Vyacheslav Aristov']),
+      new HtmlFooter(['© ', (new Date).getFullYear(), ' Vyacheslav Aristov']),
     ]
   }
 }
 
 class AuthForm extends HtmlForm
 {
+  constructor(props) {
+    super(props)
+    this.state = { busy : false }
+  }
+
   render() {
+    const disabled = !!this.state.busy
+    this.node.addEventListener('submit', e => {
+      e.preventDefault()
+      this.setState({ busy : true })
+    })
     return [
       new HtmlH2('Login'),
-      new HtmlLabel(['Username', new HtmlInput]),
-      new HtmlLabel(['Password', new HtmlInput({ type : 'password' })]),
-      new HtmlButton('Enter'),
+      new HtmlLabel([
+        'Username',
+        new HtmlInput({ disabled }),
+      ]),
+      new HtmlLabel([
+        'Password',
+        new HtmlInput({ type : 'password', disabled }),
+      ]),
+      new HtmlButton({ children : 'Enter', disabled }),
     ]
   }
 }
