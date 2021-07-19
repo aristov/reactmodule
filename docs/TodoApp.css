@@ -1,0 +1,53 @@
+.TodoApp
+{
+  margin: 50px auto;
+  padding: 10px;
+  font: 1.5rem Arial, sans-serif;
+  width: fit-content;
+  color: rgba(0, 0, 0, .8);
+}
+.TodoForm input,
+.TodoForm button
+{
+  font: inherit;
+  padding: .5em;
+}
+.TodoList
+{
+  margin: 50px 0;
+  padding: 0;
+}
+.TodoItem
+{
+  display: grid;
+  grid-template-areas: 'checkbox text button';
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 15px 0;
+}
+.TodoItem:not(:first-child)
+{
+  border-top: 1px solid rgba(0, 0, 0, .1);
+}
+.TodoItem input
+{
+  grid-area: checkbox;
+  --size: 25px;
+  width: var(--size);
+  height: var(--size);
+  margin-right: 30px;
+}
+.TodoItem time
+{
+  font-size: .8rem;
+  grid-area: date;
+  opacity: .3;
+}
+.TodoItem text
+{
+  grid-area: text;
+}
+.TodoItem button
+{
+  grid-area: button;
+}

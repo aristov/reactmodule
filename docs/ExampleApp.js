@@ -2,7 +2,7 @@ import {
   HtmlImg, HtmlBody, HtmlHeader, HtmlMain, HtmlFooter, HtmlH1, HtmlButton, HtmlDiv, HtmlForm,
   HtmlInput, HtmlLabel, HtmlH2, Role
 } from '../lib'
-import './index.css'
+import './ExampleApp.css'
 
 export class ExampleApp extends HtmlBody
 {
