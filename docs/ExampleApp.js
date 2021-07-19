@@ -1,6 +1,6 @@
 import {
   HtmlImg, HtmlBody, HtmlHeader, HtmlMain, HtmlFooter, HtmlH1, HtmlButton, HtmlDiv, HtmlForm,
-  HtmlInput, HtmlLabel, HtmlH2,
+  HtmlInput, HtmlLabel, HtmlH2, Role
 } from '../lib'
 import './index.css'
 
@@ -31,13 +31,17 @@ export class ExampleApp extends HtmlBody
         }),
       ]),
       new HtmlMain([
+        new RoleButton('RoleButton'),
+        new Button('Button'),
+        new MenuButton('MenuButton'),
         new HtmlH1('Vyacheslav Aristov'),
         new AuthForm,
         new HtmlButton({
           children : 'findAll',
           onclick : () => {
             // const result = this.findAll(HtmlInput, input => input.node.type === 'password')
-            const result = this.findAll(HtmlButton, null, 2)
+            // const result = this.findAll(HtmlButton, null, 2)
+            const result = this.findAll(RoleButton)
             console.log(result)
             console.log(result.map(item => item.node))
           },
@@ -116,5 +120,17 @@ class Wrapper extends Div
 }
 
 class ToggleButton extends HtmlButton
+{
+}
+
+export class RoleButton extends Role
+{
+}
+
+class Button extends RoleButton
+{
+}
+
+class MenuButton extends Button
 {
 }

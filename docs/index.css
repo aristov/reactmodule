@@ -23,7 +23,7 @@ main
 }
 h1
 {
-  margin: 50px 0;
+  margin: 30px 0;
 }
 footer
 {
@@ -37,18 +37,18 @@ img
 button
 {
   font-size: 1.2rem;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 10px;
+  border-radius: 5px;
 }
 form
 {
   display: grid;
   max-width: 400px;
   margin: 20px auto;
-  padding: 30px;
-  grid-row-gap: 30px;
+  padding: 20px;
+  grid-row-gap: 20px;
   background-color: #ddd;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 label
 {
@@ -63,7 +63,7 @@ input
   box-sizing: border-box;
   max-width: none;
   border: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding: .2em;
   text-align: center;
 }
