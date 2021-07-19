@@ -41,6 +41,7 @@ export class ExampleApp extends HtmlBody
             console.log(result.map(item => item.node))
           },
         }),
+        '   ',
         new HtmlButton({
           children : 'findOne',
           onclick : () => {
@@ -65,7 +66,8 @@ class AuthForm extends HtmlForm
     const disabled = !!this.state.busy
     const username = this.state.username
     this.node.ariaBusy = String(disabled)
-    this.node.addEventListener('submit', this.onSubmit)
+    // this.node.addEventListener('submit', this.onSubmit)
+    this.onsubmit = this.onSubmit
     if(username) {
       return [
         new HtmlH2(`Welcome ${ username }!`),
@@ -106,7 +108,7 @@ class AuthForm extends HtmlForm
 
   removeAllListeners() {
     super.removeAllListeners()
-    this.node.removeEventListener('submit', this.onSubmit)
+    // this.node.removeEventListener('submit', this.onSubmit)
   }
 }
 
