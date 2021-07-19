@@ -33,6 +33,13 @@ export class ExampleApp extends HtmlBody
       new HtmlMain([
         new HtmlH1('Vyacheslav Aristov'),
         new AuthForm,
+        new HtmlButton({
+          children : 'findAll',
+          onclick : () => {
+            const result = this.findAll(HtmlInput, input => input.node.type === 'password')
+            console.log(result.map(item => item.node))
+          },
+        }),
       ]),
       new HtmlFooter(['© ', (new Date).getFullYear(), ' Vyacheslav Aristov']),
     ]
