@@ -36,7 +36,8 @@ export class ExampleApp extends HtmlBody
         new HtmlButton({
           children : 'findAll',
           onclick : () => {
-            const result = this.findAll(HtmlInput, input => input.node.type === 'password')
+            // const result = this.findAll(HtmlInput, input => input.node.type === 'password')
+            const result = this.findAll(HtmlButton, null, 2)
             console.log(result)
             console.log(result.map(item => item.node))
           },
