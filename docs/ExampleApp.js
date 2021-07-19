@@ -66,8 +66,7 @@ class AuthForm extends HtmlForm
     const disabled = !!this.state.busy
     const username = this.state.username
     this.node.ariaBusy = String(disabled)
-    // this.node.addEventListener('submit', this.onSubmit)
-    this.onsubmit = this.onSubmit
+    this.on('submit', this.onSubmit)
     if(username) {
       return [
         new HtmlH2(`Welcome ${ username }!`),
@@ -104,11 +103,6 @@ class AuthForm extends HtmlForm
       busy : false,
       username : this.state.username? null : this._userBox.node.value.trim(),
     }), 500)
-  }
-
-  removeAllListeners() {
-    super.removeAllListeners()
-    // this.node.removeEventListener('submit', this.onSubmit)
   }
 }
 
