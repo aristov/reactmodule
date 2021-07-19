@@ -4,7 +4,7 @@ import {
 } from '../lib'
 import './index.css'
 
-class SiteBody extends HtmlBody
+export class ExampleApp extends HtmlBody
 {
   constructor(props) {
     super(props)
@@ -12,7 +12,7 @@ class SiteBody extends HtmlBody
   }
 
   render() {
-    const counter = this.state.counter || 0 // fixme
+    const counter = this.state.counter
     return [
       new HtmlHeader([
         new Wrapper([
@@ -48,6 +48,7 @@ class AuthForm extends HtmlForm
 
   render() {
     const disabled = !!this.state.busy
+    this.node.ariaBusy = String(disabled)
     this.node.addEventListener('submit', e => {
       e.preventDefault()
       this.setState({ busy : true })
@@ -78,5 +79,3 @@ class Wrapper extends Div
 class ToggleButton extends HtmlButton
 {
 }
-
-export default () => new SiteBody({ node : document.body })

@@ -1,11 +1,12 @@
-import test from './test2'
+import { ExampleApp } from './ExampleApp'
 
-test()
+const render = () => ExampleApp.render({ node : document.body })
+
+render()
 
 if(module.hot) {
-  // module.hot.accept(['./test1'], () => location.reload())
-  module.hot.accept(['./test2'], () => {
-    document.body.innerHTML = ''
-    test()
+  module.hot.accept(['./ExampleApp'], () => {
+    document.body = document.createElement('body')
+    render()
   })
 }
