@@ -37,7 +37,15 @@ export class ExampleApp extends HtmlBody
           children : 'findAll',
           onclick : () => {
             const result = this.findAll(HtmlInput, input => input.node.type === 'password')
+            console.log(result)
             console.log(result.map(item => item.node))
+          },
+        }),
+        new HtmlButton({
+          children : 'findOne',
+          onclick : () => {
+            const result = this.findOne(HtmlImg)
+            console.log(result, result?.node)
           },
         }),
       ]),
