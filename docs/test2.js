@@ -8,19 +8,26 @@ class SiteBody extends HtmlBody
 {
   constructor(props) {
     super(props)
-    this.state = { crazy : false }
+    this.state = { counter : 0 }
   }
 
   render() {
+    const counter = this.state.counter || 0 // fixme
     return [
       new HtmlHeader([
-        new Wrapper(new HtmlImg({
-          src : this.state.crazy? 'crazy7.jpg' : 'aristov.jpg',
-          alt : 'UserPic',
-        })),
+        new Wrapper([
+          !(counter % 2) && new HtmlImg({
+            src : 'aristov.jpg',
+            alt : 'UserPic',
+          }),
+          !!(counter % 3) && new HtmlImg({
+            src : 'crazy7.jpg',
+            alt : 'UserPic',
+          }),
+        ]),
         new ToggleButton({
-          onclick : () => this.setState({ crazy : !this.state.crazy }),
-          children : this.state.crazy? 'Off' : 'On',
+          onclick : () => this.setState({ counter : this.state.counter + 1 }),
+          children : counter.toString(),
         }),
       ]),
       new HtmlMain([
