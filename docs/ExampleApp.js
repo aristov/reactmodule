@@ -43,25 +43,31 @@ class AuthForm extends HtmlForm
 {
   constructor(props) {
     super(props)
-    this.state = { busy : false }
+    this.state = { busy : false, username : null }
   }
 
   render() {
     const disabled = !!this.state.busy
+    const username = this.state.username
     this.node.ariaBusy = String(disabled)
     this.node.addEventListener('submit', e => {
       e.preventDefault()
+      const username = this._userBox.node.value.trim()
       this.setState({ busy : true })
+      setTimeout(() => this.setState({ busy : false, username }), 500)
     })
+    if(username) {
+      return new HtmlH2(`Welcome ${ username }!`)
+    }
     return [
       new HtmlH2('Login'),
       new HtmlLabel([
         'Username',
-        new HtmlInput({ disabled }),
+        this._userBox = new HtmlInput({ required : true, disabled }),
       ]),
       new HtmlLabel([
         'Password',
-        new HtmlInput({ type : 'password', disabled }),
+        new HtmlInput({ type : 'password', required : true, disabled }),
       ]),
       new HtmlButton({ children : 'Enter', disabled }),
     ]
