@@ -65,14 +65,7 @@ class AuthForm extends HtmlForm
     const disabled = !!this.state.busy
     const username = this.state.username
     this.node.ariaBusy = String(disabled)
-    this.node.addEventListener('submit', e => {
-      e.preventDefault()
-      this.setState({ busy : true })
-      setTimeout(() => this.setState({
-        busy : false,
-        username : username? null : this._userBox.node.value.trim(),
-      }), 500)
-    })
+    this.node.addEventListener('submit', this.onSubmit)
     if(username) {
       return [
         new HtmlH2(`Welcome ${ username }!`),
@@ -100,6 +93,20 @@ class AuthForm extends HtmlForm
       ]),
       new HtmlButton({ children : 'Enter', disabled }),
     ]
+  }
+
+  onSubmit = e => {
+    e.preventDefault()
+    this.setState({ busy : true })
+    setTimeout(() => this.setState({
+      busy : false,
+      username : this.state.username? null : this._userBox.node.value.trim(),
+    }), 500)
+  }
+
+  removeAllListeners() {
+    super.removeAllListeners()
+    this.node.removeEventListener('submit', this.onSubmit)
   }
 }
 
