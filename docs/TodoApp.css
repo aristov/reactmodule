@@ -51,3 +51,7 @@
 {
   grid-area: button;
 }
+.TodoItem[aria-busy]
+{
+  color: rgba(0, 0, 0, .5);
+}
