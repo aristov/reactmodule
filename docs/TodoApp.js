@@ -49,7 +49,7 @@ class TodoForm extends HtmlForm
 class TodoList extends HtmlUl
 {
   render() {
-    return this.props.items.map(item => new TodoItem({ item }))
+    return this.props.items.map(item => new TodoItem({ item, key : item.id }))
   }
 }
 
@@ -98,8 +98,8 @@ class AppInteface extends EventTarget
 
   createItem(item) {
     item.id = Date.now()
-    // this._data.push(item)
-    this._data.unshift(item)
+    this._data.push(item)
+    // this._data.unshift(item)
     this._save()
   }
 
@@ -113,6 +113,13 @@ class AppInteface extends EventTarget
     this._data = this._data.filter(item => item.id !== id)
     this._save()
   }
+
+  reorderItems(type) {
+    type === 'pop' && this._data.unshift(this._data.pop())
+    type === 'push' && this._data.push(this._data.shift())
+    this._save()
+    // return this._data
+  }
 }
 
-const api = new AppInteface
+const api = window.api = new AppInteface
