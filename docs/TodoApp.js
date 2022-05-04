@@ -3,15 +3,11 @@ import './TodoApp.css'
 
 export class TodoApp extends HtmlDiv
 {
-  constructor(props) {
-    super(props)
-    this.state = { items : null }
-    api.addEventListener('update', this.onUpdate)
-  }
+  state = { items : null }
 
   render() {
     if(!this.state.items) {
-      return new HtmlDiv('Загрузка...')
+      return new HtmlDiv('Loading...')
     }
     return [
       new TodoForm,
@@ -20,6 +16,7 @@ export class TodoApp extends HtmlDiv
   }
 
   async componentDidMount() {
+    api.addEventListener('update', this.onUpdate)
     this.setState({ items : await api.getItems() })
   }
 
@@ -27,25 +24,28 @@ export class TodoApp extends HtmlDiv
     this.setState({ items : e.detail })
   }
 
-  removeAllListeners() {
-    super.removeAllListeners()
+  componentWillUnmount() {
     api.removeEventListener('update', this.onUpdate)
   }
 }
 
 class TodoForm extends HtmlForm
 {
-  constructor(props) {
-    super(props)
-    this.state = { busy : false }
-  }
+  state = { text : '', busy : false }
 
   render() {
-    const disabled = this.state.busy
-    this.on('submit', this.onSubmit)
+    this.onsubmit = this.onSubmit
     return [
-      this._input = new HtmlInput({ required : true, disabled }),
-      this._button = new HtmlButton({ children : 'Добавить', disabled }),
+      this._input = new HtmlInput({
+        disabled : this.state.busy,
+        required : true,
+        value : this.state.text,
+        oninput : e => this.setState({ text : e.target.value }),
+      }),
+      new HtmlButton({
+        disabled : this.state.busy,
+        children : 'Add',
+      }),
     ]
   }
 
@@ -53,53 +53,52 @@ class TodoForm extends HtmlForm
     e.preventDefault()
     this.setState({ busy : true })
     await api.createItem({
-      text : this._input.node.value.trim(),
+      text : this.state.text.trim(),
       completed : false,
     })
-    this._input.node.value = ''
-    this.setState({ busy : false })
+    this.setState({ text : '', busy : false })
+    this._input.node.focus()
   }
 }
 
 class TodoList extends HtmlUl
 {
   render() {
-    return this.props.items.map(item => new TodoItem({ item, key : item.id }))
+    return this.props.items.map(item => (
+      new TodoItem({ item, id : 'ID' + item.id })
+    ))
   }
 }
 
 class TodoItem extends HtmlLi
 {
-  constructor(props) {
-    super(props)
-    this.state = { busy : false }
-  }
+  state = { busy : false }
 
   render() {
     const item = this.props.item
-    const busy = this.state.busy
-    this.node.setAttribute('aria-busy', busy)
+    this.node.setAttribute('aria-busy', this.state.busy)
     return [
-      this._checkbox = new HtmlInput({
+      new HtmlInput({
         type : 'checkbox',
-        defaultChecked : item.completed,
-        disabled : busy,
+        checked : item.completed,
+        disabled : this.state.busy,
         onchange : this.onChange,
       }),
       new HtmlDiv(item.text),
       new HtmlButton({
-        children : 'Удалить',
-        disabled : busy,
+        children : 'Delete',
+        disabled : this.state.busy,
         onclick : this.onRemove,
       }),
     ]
   }
 
   onChange = async () => {
+    const item = this.props.item
     this.setState({ busy : true })
     await api.updateItem({
-      id : this.props.item.id,
-      completed : this._checkbox.node.checked,
+      id : item.id,
+      completed : !item.completed,
     })
     this.setState({ busy : false })
   }
@@ -117,7 +116,7 @@ class AppInteface extends EventTarget
   constructor() {
     super()
     const json = localStorage.getItem('TodoApp.items')
-    this._data = json? JSON.parse(json) : []
+    this._data = json ? JSON.parse(json) : []
   }
 
   async _save() {
@@ -132,14 +131,13 @@ class AppInteface extends EventTarget
 
   async createItem(item) {
     item.id = Date.now()
-    this._data.push(item)
-    // this._data.unshift(item)
+    this._data.unshift(item)
     return this._save()
   }
 
-  async updateItem(newItem) {
-    const item = this._data.find(item => item.id === newItem.id)
-    Object.assign(item, newItem)
+  async updateItem(item) {
+    const oldItem = this._data.find(({ id }) => id === item.id)
+    Object.assign(oldItem, item)
     return this._save()
   }
 
@@ -148,11 +146,10 @@ class AppInteface extends EventTarget
     return this._save()
   }
 
-  reorderItems(type) {
+  async reorderItems(type) {
     type === 'pop' && this._data.unshift(this._data.pop())
     type === 'push' && this._data.push(this._data.shift())
-    void this._save()
-    // return this._data
+    return this._save()
   }
 }
 
