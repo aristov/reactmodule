@@ -3,7 +3,9 @@ import './TodoApp.css'
 
 export class TodoApp extends HtmlDiv
 {
-  state = { items : null }
+  getState() {
+    return { items : null }
+  }
 
   render() {
     if(!this.state.items) {
@@ -20,18 +22,20 @@ export class TodoApp extends HtmlDiv
     this.setState({ items : await api.getItems() })
   }
 
-  onUpdate = e => {
-    this.setState({ items : e.detail })
-  }
-
   componentWillUnmount() {
     api.removeEventListener('update', this.onUpdate)
+  }
+
+  onUpdate = e => {
+    this.setState({ items : e.detail })
   }
 }
 
 class TodoForm extends HtmlForm
 {
-  state = { text : '', busy : false }
+  getState() {
+    return { text : '', busy : false }
+  }
 
   render() {
     this.onsubmit = this.onSubmit
@@ -72,7 +76,9 @@ class TodoList extends HtmlUl
 
 class TodoItem extends HtmlLi
 {
-  state = { busy : false }
+  getState() {
+    return { busy : false }
+  }
 
   render() {
     const item = this.props.item
@@ -82,18 +88,18 @@ class TodoItem extends HtmlLi
         type : 'checkbox',
         checked : item.completed,
         disabled : this.state.busy,
-        onchange : this.onChange,
+        onchange : this.onChange.bind(this),
       }),
       new HtmlDiv(item.text),
       new HtmlButton({
         children : 'Delete',
         disabled : this.state.busy,
-        onclick : this.onRemove,
+        onclick : e => this.onRemove(e),
       }),
     ]
   }
 
-  onChange = async () => {
+  async onChange() {
     const item = this.props.item
     this.setState({ busy : true })
     await api.updateItem({

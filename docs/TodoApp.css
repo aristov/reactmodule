@@ -20,7 +20,7 @@
 .TodoItem
 {
   display: grid;
-  grid-template-areas: 'checkbox text button';
+  grid-column-gap: 20px;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   padding: 15px 0;
@@ -31,25 +31,14 @@
 }
 .TodoItem input
 {
-  grid-area: checkbox;
   --size: 25px;
   width: var(--size);
   height: var(--size);
-  margin-right: 30px;
 }
 .TodoItem time
 {
   font-size: .8rem;
-  grid-area: date;
   opacity: .3;
-}
-.TodoItem text
-{
-  grid-area: text;
-}
-.TodoItem button
-{
-  grid-area: button;
 }
 .TodoItem[aria-busy]
 {
