@@ -1,14 +1,12 @@
 import { TodoApp } from './TodoApp'
 
-const render = () => {
-  new TodoApp({ parent : document.body })
+const render = app => {
+  app?.destroy()
+  return new TodoApp({ parent : document.body })
 }
 
-render()
+let app = render()
 
 if(module.hot) {
-  module.hot.accept(['./TodoApp'], () => {
-    document.body = document.createElement('body')
-    render()
-  })
+  module.hot.accept(['./TodoApp'], () => app = render(app))
 }

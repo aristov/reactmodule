@@ -21,7 +21,7 @@ export class TodoItem extends HtmlLi
       new HtmlButton({
         children : 'Delete',
         disabled : this.state.busy,
-        onclick : e => this.onRemove(e),
+        onclick : this.onRemove.bind(this),
       }),
     ]
   }
@@ -36,7 +36,7 @@ export class TodoItem extends HtmlLi
     this.setState({ busy : false })
   }
 
-  onRemove = async () => {
+  async onRemove() {
     this.setState({ busy : true })
     await api.removeItem(this.props.item.id)
   }

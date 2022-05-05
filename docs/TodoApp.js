@@ -21,7 +21,8 @@ export class TodoApp extends HtmlDiv
   }
 
   async componentDidMount() {
-    api.addEventListener('update', this.onUpdate)
+    super.componentDidMount()
+    api.addEventListener('update', this.onUpdate = this.onUpdate.bind(this))
     this.setState({ items : await api.getItems() })
   }
 
@@ -29,7 +30,7 @@ export class TodoApp extends HtmlDiv
     api.removeEventListener('update', this.onUpdate)
   }
 
-  onUpdate = e => {
+  onUpdate(e) {
     this.setState({ items : e.detail })
   }
 }

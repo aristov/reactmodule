@@ -8,7 +8,7 @@ export class TodoForm extends HtmlForm
   }
 
   render() {
-    this.onsubmit = this.onSubmit
+    this.onsubmit = this.onSubmit.bind(this)
     return [
       this._input = new HtmlInput({
         disabled : this.state.busy,
@@ -23,7 +23,7 @@ export class TodoForm extends HtmlForm
     ]
   }
 
-  onSubmit = async e => {
+  async onSubmit(e) {
     e.preventDefault()
     this.setState({ busy : true })
     await api.createItem({
