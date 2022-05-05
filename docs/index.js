@@ -2,7 +2,7 @@ import { TodoApp } from './TodoApp'
 
 const render = app => {
   app?.destroy()
-  return new TodoApp({ parent : document.body })
+  return TodoApp.render({}, document.body)
 }
 
 let app = render()

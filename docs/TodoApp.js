@@ -21,7 +21,6 @@ export class TodoApp extends HtmlDiv
   }
 
   async componentDidMount() {
-    super.componentDidMount()
     api.addEventListener('update', this.onUpdate = this.onUpdate.bind(this))
     this.setState({ items : await api.getItems() })
   }
