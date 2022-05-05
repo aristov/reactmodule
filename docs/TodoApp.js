@@ -6,9 +6,7 @@ import './TodoApp.css'
 
 export class TodoApp extends HtmlDiv
 {
-  getState() {
-    return { items : null }
-  }
+  state = { items : null }
 
   render() {
     if(!this.state.items) {
@@ -21,7 +19,7 @@ export class TodoApp extends HtmlDiv
   }
 
   async componentDidMount() {
-    api.addEventListener('update', this.onUpdate = this.onUpdate.bind(this))
+    api.addEventListener('update', this.onUpdate)
     this.setState({ items : await api.getItems() })
   }
 
@@ -29,7 +27,7 @@ export class TodoApp extends HtmlDiv
     api.removeEventListener('update', this.onUpdate)
   }
 
-  onUpdate(e) {
+  onUpdate = e => {
     this.setState({ items : e.detail })
   }
 }

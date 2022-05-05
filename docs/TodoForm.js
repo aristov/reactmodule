@@ -3,12 +3,10 @@ import api from './api'
 
 export class TodoForm extends HtmlForm
 {
-  getState() {
-    return { text : '', busy : false }
-  }
+  state = { text : '', busy : false }
 
   render() {
-    this.onsubmit = this.onSubmit.bind(this)
+    this.onsubmit = this.onSubmit
     return [
       this._input = new HtmlInput({
         disabled : this.state.busy,
@@ -23,7 +21,7 @@ export class TodoForm extends HtmlForm
     ]
   }
 
-  async onSubmit(e) {
+  onSubmit = async e => {
     e.preventDefault()
     this.setState({ busy : true })
     await api.createItem({

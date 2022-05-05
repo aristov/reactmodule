@@ -3,9 +3,7 @@ import api from './api'
 
 export class TodoItem extends HtmlLi
 {
-  getState() {
-    return { busy : false }
-  }
+  state = { busy : false }
 
   render() {
     const item = this.props.item
@@ -15,18 +13,18 @@ export class TodoItem extends HtmlLi
         type : 'checkbox',
         checked : item.completed,
         disabled : this.state.busy,
-        onchange : this.onChange.bind(this),
+        onchange : this.onChange,
       }),
       new HtmlDiv(item.text),
       new HtmlButton({
         children : 'Delete',
         disabled : this.state.busy,
-        onclick : this.onRemove.bind(this),
+        onclick : this.onRemove,
       }),
     ]
   }
 
-  async onChange() {
+  onChange = async () => {
     const item = this.props.item
     this.setState({ busy : true })
     await api.updateItem({
@@ -36,7 +34,7 @@ export class TodoItem extends HtmlLi
     this.setState({ busy : false })
   }
 
-  async onRemove() {
+  onRemove = async () => {
     this.setState({ busy : true })
     await api.removeItem(this.props.item.id)
   }
